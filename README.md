@@ -1,6 +1,6 @@
-# instruction-generation
+# Instruction generation
 
-Tools for generating instruction data
+Tools for generating instruction data.
 
 ## Usage
 
