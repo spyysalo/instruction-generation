@@ -15,44 +15,12 @@ INSTRUCTIONS = [
     'Koosta kirjaimet sanoiksi.'
 ]
 
-# Regular expression for tokenization
-TOKENIZATION_RE = re.compile(r'([^\W_]+|\S|.)')
-
 
 def argparser():
     ap = ArgumentParser()
     ap.add_argument('--seed', type=int, default=None)
     ap.add_argument('jsonl', help='JSONL with text in "text" field')
     return ap
-
-
-def masked_token_candidate_indices(tokens):
-    # Prefer alphabetic token
-    candidates = [
-        i for i, t in enumerate(tokens)
-        if all(c.isalpha() for c in t)
-    ]
-    if candidates:
-        return candidates
-
-    # As a second option, alphanumeric
-    candidates = [
-        i for i, t in enumerate(tokens)
-        if all(c.isanum() for c in t)
-    ]
-    if candidates:
-        return candidates
-
-    # Third option, non-whitespace
-    candidates = [
-        i for i, t in enumerate(tokens)
-        if all(not c.isspace() for c in t)
-    ]
-    if candidates:
-        return candidates
-    
-    # Final fallback: anything
-    return list(range(len(tokens)))
 
 
 def partition_chars(text, args):
